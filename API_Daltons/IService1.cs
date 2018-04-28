@@ -64,6 +64,9 @@ namespace API_Daltons
 
         [OperationContract]
         IList<Technicien> SearchTechnicien();
+
+        [OperationContract]
+        IList<Motif_intervention> SearchMotif();
         #endregion
 
         #region Update

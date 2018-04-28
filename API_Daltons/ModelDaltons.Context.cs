@@ -105,12 +105,8 @@ namespace API_Daltons
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddMateriel", id_materielParameter, num_serieParameter, modeleParameter, ipParameter);
         }
     
-        public virtual int AddSociete(Nullable<int> id_societe, string nom_societe, string adresse_societe, string email_societe, string ville_societe, string cp_societe, string tel_societe)
+        public virtual int AddSociete(string nom_societe, string adresse_societe, string email_societe, string ville_societe, string cp_societe, string tel_societe)
         {
-            var id_societeParameter = id_societe.HasValue ?
-                new ObjectParameter("id_societe", id_societe) :
-                new ObjectParameter("id_societe", typeof(int));
-    
             var nom_societeParameter = nom_societe != null ?
                 new ObjectParameter("nom_societe", nom_societe) :
                 new ObjectParameter("nom_societe", typeof(string));
@@ -135,7 +131,7 @@ namespace API_Daltons
                 new ObjectParameter("tel_societe", tel_societe) :
                 new ObjectParameter("tel_societe", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddSociete", id_societeParameter, nom_societeParameter, adresse_societeParameter, email_societeParameter, ville_societeParameter, cp_societeParameter, tel_societeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddSociete", nom_societeParameter, adresse_societeParameter, email_societeParameter, ville_societeParameter, cp_societeParameter, tel_societeParameter);
         }
     
         public virtual int AddTechnicien(string nom, string prenom, Nullable<int> id_materiel, string tel)
@@ -217,6 +213,11 @@ namespace API_Daltons
         public virtual ObjectResult<SearchMateriel_Result> SearchMateriel()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SearchMateriel_Result>("SearchMateriel");
+        }
+    
+        public virtual ObjectResult<SearchMotif_Result> SearchMotif()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SearchMotif_Result>("SearchMotif");
         }
     
         public virtual ObjectResult<SearchSociete_Result> SearchSociete()

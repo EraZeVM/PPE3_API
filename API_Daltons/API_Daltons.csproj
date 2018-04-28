@@ -125,6 +125,9 @@
     <Compile Include="SearchMateriel_Result.cs">
       <DependentUpon>ModelDaltons.tt</DependentUpon>
     </Compile>
+    <Compile Include="SearchMotif_Result.cs">
+      <DependentUpon>ModelDaltons.tt</DependentUpon>
+    </Compile>
     <Compile Include="SearchSociete_Result.cs">
       <DependentUpon>ModelDaltons.tt</DependentUpon>
     </Compile>

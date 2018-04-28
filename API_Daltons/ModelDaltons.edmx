@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="bdd_Daltons_ppe3Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="bdd_Daltons_ppe3Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Compte_rendu">
           <Key>
             <PropertyRef Name="id_compte_rendu" />
@@ -241,7 +241,6 @@
           <Parameter Name="ip" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="AddSociete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="id_societe" Type="int" Mode="In" />
           <Parameter Name="nom_societe" Type="nvarchar" Mode="In" />
           <Parameter Name="adresse_societe" Type="nvarchar" Mode="In" />
           <Parameter Name="email_societe" Type="nvarchar" Mode="In" />
@@ -274,6 +273,7 @@
         <Function Name="SearchCompte_Rendu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SearchIntervention" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SearchMateriel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SearchMotif" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SearchSociete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SearchTechnicien" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -392,7 +392,8 @@
             <End Role="Technicien" EntitySet="Technicien" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="bdd_Daltons_ppe3Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -708,7 +709,6 @@
             <Parameter Name="ip" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="AddSociete">
-            <Parameter Name="id_societe" Mode="In" Type="Int32" />
             <Parameter Name="nom_societe" Mode="In" Type="String" />
             <Parameter Name="adresse_societe" Mode="In" Type="String" />
             <Parameter Name="email_societe" Mode="In" Type="String" />
@@ -723,23 +723,24 @@
             <Parameter Name="tel" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="DeleteCompte_Rendu">
-          <Parameter Name="idcompte_rendu" Mode="In" Type="Int32" />
+            <Parameter Name="idcompte_rendu" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="DeleteIntervention">
-          <Parameter Name="id_intervention" Mode="In" Type="Int32" />
+            <Parameter Name="id_intervention" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="DeleteMateriel">
-          <Parameter Name="idmateriel" Mode="In" Type="Int32" />
+            <Parameter Name="idmateriel" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="DeleteSociete">
-          <Parameter Name="idsociete" Mode="In" Type="Int32" />
+            <Parameter Name="idsociete" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="DeleteTechnicien">
-          <Parameter Name="idtechnicien" Mode="In" Type="Int32" />
+            <Parameter Name="idtechnicien" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SearchCompte_Rendu" ReturnType="Collection(bdd_Daltons_ppe3Model.SearchCompte_Rendu_Result)" />
           <FunctionImport Name="SearchIntervention" ReturnType="Collection(bdd_Daltons_ppe3Model.SearchIntervention_Result)" />
           <FunctionImport Name="SearchMateriel" ReturnType="Collection(bdd_Daltons_ppe3Model.SearchMateriel_Result)" />
+          <FunctionImport Name="SearchMotif" ReturnType="Collection(bdd_Daltons_ppe3Model.SearchMotif_Result)" />
           <FunctionImport Name="SearchSociete" ReturnType="Collection(bdd_Daltons_ppe3Model.SearchSociete_Result)" />
           <FunctionImport Name="SearchTechnicien" ReturnType="Collection(bdd_Daltons_ppe3Model.SearchTechnicien_Result)" />
           <FunctionImport Name="sp_alterdiagram">
@@ -824,6 +825,11 @@
           <Property Type="String" Name="num_serie" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="modele" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="ip" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SearchMotif_Result">
+          <Property Type="Int32" Name="id_motif" Nullable="false" />
+          <Property Type="String" Name="libelle" Nullable="false" MaxLength="50" />
+          <Property Type="Double" Name="prix_h" Nullable="false" />
         </ComplexType>
         <ComplexType Name="SearchSociete_Result">
           <Property Type="Int32" Name="id_societe" Nullable="false" />
@@ -991,6 +997,15 @@
                 <ScalarProperty Name="num_serie" ColumnName="num_serie" />
                 <ScalarProperty Name="modele" ColumnName="modele" />
                 <ScalarProperty Name="ip" ColumnName="ip" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SearchMotif" FunctionName="bdd_Daltons_ppe3Model.Store.SearchMotif">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bdd_Daltons_ppe3Model.SearchMotif_Result">
+                <ScalarProperty Name="id_motif" ColumnName="id_motif" />
+                <ScalarProperty Name="libelle" ColumnName="libelle" />
+                <ScalarProperty Name="prix_h" ColumnName="prix_h" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

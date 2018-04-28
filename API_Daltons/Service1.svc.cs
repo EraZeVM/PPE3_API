@@ -48,7 +48,7 @@ namespace API_Daltons
             using (bdd_Daltons_ppe3Entities bdd = new bdd_Daltons_ppe3Entities())
             {
                 bdd.Configuration.ProxyCreationEnabled = false;
-                bdd.AddSociete(societe.id_societe, societe.nom_societe, societe.adresse_societe, societe.email_societe, societe.ville_societe, societe.cp_societe, societe.tel_societe);
+                bdd.AddSociete(societe.nom_societe, societe.adresse_societe, societe.email_societe, societe.ville_societe, societe.cp_societe, societe.tel_societe);
             }
             return 1;
         }
@@ -152,6 +152,7 @@ namespace API_Daltons
             foreach (SearchIntervention_Result one in maListeBDD)
             {
                 Intervention temp = new Intervention();
+                temp.id_intervention = one.id_intervention;
                 temp.id_motif = one.id_motif;
                 temp.date_intervention = one.date_intervention;
                 temp.id_compte_rendu = one.id_compte_rendu;
@@ -204,6 +205,7 @@ namespace API_Daltons
             foreach (SearchSociete_Result one in maListeBDD)
             {
                 Societe temp = new Societe();
+                temp.id_societe = one.id_societe;
                 temp.nom_societe = one.nom_societe;
                 temp.adresse_societe = one.adresse_societe;
                 temp.email_societe = one.email_societe;
@@ -231,6 +233,7 @@ namespace API_Daltons
             foreach (SearchTechnicien_Result one in maListeBDD)
             {
                 Technicien temp = new Technicien();
+                temp.id_technicien = one.id_technicien;
                 temp.nom = one.nom;
                 temp.prenom = one.prenom;
                 temp.id_materiel = one.id_materiel;
@@ -239,6 +242,29 @@ namespace API_Daltons
             }
 
             return ListeTechnicien;
+        }
+
+        public IList<Motif_intervention> SearchMotif()
+        {
+            IList<SearchMotif_Result> maListeBDD;
+            using (bdd_Daltons_ppe3Entities bdd = new bdd_Daltons_ppe3Entities())
+            {
+                maListeBDD = bdd.SearchMotif().ToList();
+            }
+
+            // Translation vers une liste de motif
+
+            IList<Motif_intervention> ListeMotif = new List<Motif_intervention>();
+
+            foreach (SearchMotif_Result one in maListeBDD)
+            {
+                Motif_intervention temp = new Motif_intervention();
+                temp.id_motif = one.id_motif;
+                temp.libelle = one.libelle;
+                ListeMotif.Add(temp);
+            }
+
+            return ListeMotif;
         }
         #endregion
 

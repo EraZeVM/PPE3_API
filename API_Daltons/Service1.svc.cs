@@ -112,7 +112,7 @@ namespace API_Daltons
         }
         #endregion
 
-        #region Search
+          #region Search
         public IList<Compte_rendu> SearchCompte_rendu()
         {
             IList<SearchCompte_Rendu_Result> maListeBDD;
@@ -152,14 +152,31 @@ namespace API_Daltons
             foreach (SearchIntervention_Result one in maListeBDD)
             {
                 Intervention temp = new Intervention();
-                temp.id_intervention = one.id_intervention;
-                temp.id_motif = one.id_motif;
+                temp.Societe = new Societe();
+                temp.Technicien = new Technicien();
+                temp.Motif_intervention = new Motif_intervention();
+             
                 temp.date_intervention = one.date_intervention;
-                temp.id_compte_rendu = one.id_compte_rendu;
-                temp.id_etat = one.id_etat;
-                temp.id_technicien = one.id_technicien;
+                temp.id_intervention = one.id_intervention;
+                temp.Societe.nom_societe = one.nom_societe;
+                temp.Societe.tel_societe = one.tel_societe;
+                temp.Societe.ville_societe = one.ville_societe;
+                temp.Societe.cp_societe = one.cp_societe;
+                temp.Societe.adresse_societe = one.adresse_societe;
+                temp.Societe.email_societe = one.email_societe;
                 temp.id_societe = one.id_societe;
+                temp.Motif_intervention.libelle = one.libelle;
+                temp.id_motif = one.id_motif;
+                temp.id_technicien = one.id_technicien;
+                temp.Technicien.nom = one.nom;
+                temp.Technicien.prenom = one.prenom;
+                temp.Technicien.tel = one.tel;
+                temp.id_etat = one.id_etat;
                 ListeIntervention.Add(temp);
+
+                ListeIntervention = ListeIntervention.OrderBy(c => c.date_intervention)
+                    .OrderBy(c => c.id_technicien)
+                    .ToList();
             }
 
             return ListeIntervention;
@@ -233,11 +250,14 @@ namespace API_Daltons
             foreach (SearchTechnicien_Result one in maListeBDD)
             {
                 Technicien temp = new Technicien();
+                temp.Materiel = new Materiel();
                 temp.id_technicien = one.id_technicien;
                 temp.nom = one.nom;
                 temp.prenom = one.prenom;
-                temp.id_materiel = one.id_materiel;
                 temp.tel = one.tel;
+                temp.id_materiel = one.id_materiel;
+                temp.Materiel.modele = one.modele;
+                temp.Materiel.num_serie = one.num_serie;
                 ListeTechnicien.Add(temp);
             }
 

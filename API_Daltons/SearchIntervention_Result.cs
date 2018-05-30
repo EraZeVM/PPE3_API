@@ -13,12 +13,21 @@ namespace API_Daltons
     
     public partial class SearchIntervention_Result
     {
-        public int id_intervention { get; set; }
-        public int id_societe { get; set; }
         public System.DateTime date_intervention { get; set; }
-        public int id_technicien { get; set; }
+        public int id_intervention { get; set; }
         public int id_motif { get; set; }
+        public string libelle { get; set; }
+        public int id_societe { get; set; }
+        public string nom_societe { get; set; }
+        public string adresse_societe { get; set; }
+        public string cp_societe { get; set; }
+        public string email_societe { get; set; }
+        public string tel_societe { get; set; }
+        public string ville_societe { get; set; }
+        public string nom { get; set; }
+        public string prenom { get; set; }
+        public string tel { get; set; }
+        public int id_technicien { get; set; }
         public int id_etat { get; set; }
-        public Nullable<int> id_compte_rendu { get; set; }
     }
 }

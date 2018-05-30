@@ -13,10 +13,12 @@ namespace API_Daltons
     
     public partial class SearchTechnicien_Result
     {
-        public int id_technicien { get; set; }
         public string nom { get; set; }
         public string prenom { get; set; }
-        public int id_materiel { get; set; }
         public string tel { get; set; }
+        public int id_technicien { get; set; }
+        public string modele { get; set; }
+        public string num_serie { get; set; }
+        public int id_materiel { get; set; }
     }
 }

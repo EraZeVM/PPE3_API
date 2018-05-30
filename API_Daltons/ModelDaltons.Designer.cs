@@ -1,4 +1,4 @@
-﻿// La génération de code T4 est activée pour le modèle 'C:\Users\Gamer\Desktop\PPE3\API_Daltons\API_Daltons\ModelDaltons.edmx'. 
+﻿// La génération de code T4 est activée pour le modèle 'V:\PPE update 29052018\PPE3-20180529T095803Z-001\PPE3\API_Daltons\API_Daltons\ModelDaltons.edmx'. 
 // Pour activer la génération de code héritée, définissez la valeur de la propriété
 // du concepteur 'Stratégie de génération de code' sur 'ObjectContext hérité'. Cette propriété est disponible dans la fenêtre Propriétés lorsque le modèle
 //  est ouvert dans le concepteur.

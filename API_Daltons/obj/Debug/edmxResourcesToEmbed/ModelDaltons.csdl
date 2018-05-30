@@ -1,0 +1,475 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="bdd_Daltons_ppe3Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Compte_rendu">
+    <Key>
+      <PropertyRef Name="id_compte_rendu" />
+    </Key>
+    <Property Name="id_compte_rendu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_technicien" Type="Int32" Nullable="false" />
+    <Property Name="id_societe" Type="Int32" />
+    <NavigationProperty Name="Societe" Relationship="Self.FK__Compte_re__id_so__0B91BA14" FromRole="Compte_rendu" ToRole="Societe" />
+    <NavigationProperty Name="Societe1" Relationship="Self.FK__Compte_re__id_so__0C85DE4D" FromRole="Compte_rendu" ToRole="Societe" />
+    <NavigationProperty Name="Societe2" Relationship="Self.FK__Compte_re__id_so__0D7A0286" FromRole="Compte_rendu" ToRole="Societe" />
+    <NavigationProperty Name="Technicien" Relationship="Self.FK__Compte_re__id_te__0E6E26BF" FromRole="Compte_rendu" ToRole="Technicien" />
+    <NavigationProperty Name="Intervention" Relationship="Self.FK_Intervention_Compte_rendu" FromRole="Compte_rendu" ToRole="Intervention" />
+  </EntityType>
+  <EntityType Name="Etat_intervention">
+    <Key>
+      <PropertyRef Name="id_etat" />
+    </Key>
+    <Property Name="id_etat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="libelle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Etat_intervention1" Relationship="Self.FK_Etat_intervention_Etat_intervention" FromRole="Etat_intervention" ToRole="Etat_intervention1" />
+    <NavigationProperty Name="Etat_intervention2" Relationship="Self.FK_Etat_intervention_Etat_intervention" FromRole="Etat_intervention1" ToRole="Etat_intervention" />
+    <NavigationProperty Name="Intervention" Relationship="Self.FK_Intervention_Etat_intervention1" FromRole="Etat_intervention" ToRole="Intervention" />
+  </EntityType>
+  <EntityType Name="Intervention">
+    <Key>
+      <PropertyRef Name="id_intervention" />
+    </Key>
+    <Property Name="id_intervention" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_societe" Type="Int32" Nullable="false" />
+    <Property Name="date_intervention" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="id_technicien" Type="Int32" Nullable="false" />
+    <Property Name="id_motif" Type="Int32" Nullable="false" />
+    <Property Name="id_etat" Type="Int32" Nullable="false" />
+    <Property Name="id_compte_rendu" Type="Int32" />
+    <NavigationProperty Name="Compte_rendu" Relationship="Self.FK_Intervention_Compte_rendu" FromRole="Intervention" ToRole="Compte_rendu" />
+    <NavigationProperty Name="Etat_intervention" Relationship="Self.FK_Intervention_Etat_intervention1" FromRole="Intervention" ToRole="Etat_intervention" />
+    <NavigationProperty Name="Motif_intervention" Relationship="Self.FK_Intervention_Motif_intervention1" FromRole="Intervention" ToRole="Motif_intervention" />
+    <NavigationProperty Name="Societe" Relationship="Self.FK_Intervention_Societe" FromRole="Intervention" ToRole="Societe" />
+    <NavigationProperty Name="Technicien" Relationship="Self.FK_Intervention_Technicien" FromRole="Intervention" ToRole="Technicien" />
+  </EntityType>
+  <EntityType Name="Materiel">
+    <Key>
+      <PropertyRef Name="id_materiel" />
+    </Key>
+    <Property Name="id_materiel" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="num_serie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="modele" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Technicien" Relationship="Self.FK_Technicien_Materiel" FromRole="Materiel" ToRole="Technicien" />
+  </EntityType>
+  <EntityType Name="Motif_changement_planning">
+    <Key>
+      <PropertyRef Name="id_motif" />
+    </Key>
+    <Property Name="id_motif" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="libellé" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Motif_intervention">
+    <Key>
+      <PropertyRef Name="id_motif" />
+    </Key>
+    <Property Name="id_motif" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="libelle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="prix_h" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Intervention" Relationship="Self.FK_Intervention_Motif_intervention1" FromRole="Motif_intervention" ToRole="Intervention" />
+  </EntityType>
+  <EntityType Name="Societe">
+    <Key>
+      <PropertyRef Name="id_societe" />
+    </Key>
+    <Property Name="id_societe" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nom_societe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="adresse_societe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="email_societe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ville_societe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="cp_societe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="tel_societe" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Compte_rendu" Relationship="Self.FK__Compte_re__id_so__0B91BA14" FromRole="Societe" ToRole="Compte_rendu" />
+    <NavigationProperty Name="Compte_rendu1" Relationship="Self.FK__Compte_re__id_so__0C85DE4D" FromRole="Societe" ToRole="Compte_rendu" />
+    <NavigationProperty Name="Compte_rendu2" Relationship="Self.FK__Compte_re__id_so__0D7A0286" FromRole="Societe" ToRole="Compte_rendu" />
+    <NavigationProperty Name="Intervention" Relationship="Self.FK_Intervention_Societe" FromRole="Societe" ToRole="Intervention" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Technicien">
+    <Key>
+      <PropertyRef Name="id_technicien" />
+    </Key>
+    <Property Name="id_technicien" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="id_materiel" Type="Int32" Nullable="false" />
+    <Property Name="tel" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Compte_rendu" Relationship="Self.FK__Compte_re__id_te__0E6E26BF" FromRole="Technicien" ToRole="Compte_rendu" />
+    <NavigationProperty Name="Intervention" Relationship="Self.FK_Intervention_Technicien" FromRole="Technicien" ToRole="Intervention" />
+    <NavigationProperty Name="Materiel" Relationship="Self.FK_Technicien_Materiel" FromRole="Technicien" ToRole="Materiel" />
+  </EntityType>
+  <Association Name="FK__Compte_re__id_so__0B91BA14">
+    <End Role="Societe" Type="Self.Societe" Multiplicity="0..1" />
+    <End Role="Compte_rendu" Type="Self.Compte_rendu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Societe">
+        <PropertyRef Name="id_societe" />
+      </Principal>
+      <Dependent Role="Compte_rendu">
+        <PropertyRef Name="id_societe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Compte_re__id_so__0C85DE4D">
+    <End Role="Societe" Type="Self.Societe" Multiplicity="0..1" />
+    <End Role="Compte_rendu" Type="Self.Compte_rendu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Societe">
+        <PropertyRef Name="id_societe" />
+      </Principal>
+      <Dependent Role="Compte_rendu">
+        <PropertyRef Name="id_societe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Compte_re__id_so__0D7A0286">
+    <End Role="Societe" Type="Self.Societe" Multiplicity="0..1" />
+    <End Role="Compte_rendu" Type="Self.Compte_rendu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Societe">
+        <PropertyRef Name="id_societe" />
+      </Principal>
+      <Dependent Role="Compte_rendu">
+        <PropertyRef Name="id_societe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Compte_re__id_te__0E6E26BF">
+    <End Role="Technicien" Type="Self.Technicien" Multiplicity="1" />
+    <End Role="Compte_rendu" Type="Self.Compte_rendu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Technicien">
+        <PropertyRef Name="id_technicien" />
+      </Principal>
+      <Dependent Role="Compte_rendu">
+        <PropertyRef Name="id_technicien" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Intervention_Compte_rendu">
+    <End Role="Compte_rendu" Type="Self.Compte_rendu" Multiplicity="0..1" />
+    <End Role="Intervention" Type="Self.Intervention" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Compte_rendu">
+        <PropertyRef Name="id_compte_rendu" />
+      </Principal>
+      <Dependent Role="Intervention">
+        <PropertyRef Name="id_compte_rendu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Etat_intervention_Etat_intervention">
+    <End Role="Etat_intervention" Type="Self.Etat_intervention" Multiplicity="1" />
+    <End Role="Etat_intervention1" Type="Self.Etat_intervention" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Etat_intervention">
+        <PropertyRef Name="id_etat" />
+      </Principal>
+      <Dependent Role="Etat_intervention1">
+        <PropertyRef Name="id_etat" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Intervention_Etat_intervention1">
+    <End Role="Etat_intervention" Type="Self.Etat_intervention" Multiplicity="1" />
+    <End Role="Intervention" Type="Self.Intervention" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Etat_intervention">
+        <PropertyRef Name="id_etat" />
+      </Principal>
+      <Dependent Role="Intervention">
+        <PropertyRef Name="id_etat" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Intervention_Motif_intervention1">
+    <End Role="Motif_intervention" Type="Self.Motif_intervention" Multiplicity="1" />
+    <End Role="Intervention" Type="Self.Intervention" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Motif_intervention">
+        <PropertyRef Name="id_motif" />
+      </Principal>
+      <Dependent Role="Intervention">
+        <PropertyRef Name="id_motif" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Intervention_Societe">
+    <End Role="Societe" Type="Self.Societe" Multiplicity="1" />
+    <End Role="Intervention" Type="Self.Intervention" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Societe">
+        <PropertyRef Name="id_societe" />
+      </Principal>
+      <Dependent Role="Intervention">
+        <PropertyRef Name="id_societe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Intervention_Technicien">
+    <End Role="Technicien" Type="Self.Technicien" Multiplicity="1" />
+    <End Role="Intervention" Type="Self.Intervention" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Technicien">
+        <PropertyRef Name="id_technicien" />
+      </Principal>
+      <Dependent Role="Intervention">
+        <PropertyRef Name="id_technicien" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Technicien_Materiel">
+    <End Role="Materiel" Type="Self.Materiel" Multiplicity="1" />
+    <End Role="Technicien" Type="Self.Technicien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Materiel">
+        <PropertyRef Name="id_materiel" />
+      </Principal>
+      <Dependent Role="Technicien">
+        <PropertyRef Name="id_materiel" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="bdd_Daltons_ppe3Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Compte_rendu" EntityType="Self.Compte_rendu" />
+    <EntitySet Name="Etat_intervention" EntityType="Self.Etat_intervention" />
+    <EntitySet Name="Intervention" EntityType="Self.Intervention" />
+    <EntitySet Name="Materiel" EntityType="Self.Materiel" />
+    <EntitySet Name="Motif_changement_planning" EntityType="Self.Motif_changement_planning" />
+    <EntitySet Name="Motif_intervention" EntityType="Self.Motif_intervention" />
+    <EntitySet Name="Societe" EntityType="Self.Societe" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Technicien" EntityType="Self.Technicien" />
+    <AssociationSet Name="FK__Compte_re__id_so__0B91BA14" Association="Self.FK__Compte_re__id_so__0B91BA14">
+      <End Role="Societe" EntitySet="Societe" />
+      <End Role="Compte_rendu" EntitySet="Compte_rendu" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Compte_re__id_so__0C85DE4D" Association="Self.FK__Compte_re__id_so__0C85DE4D">
+      <End Role="Societe" EntitySet="Societe" />
+      <End Role="Compte_rendu" EntitySet="Compte_rendu" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Compte_re__id_so__0D7A0286" Association="Self.FK__Compte_re__id_so__0D7A0286">
+      <End Role="Societe" EntitySet="Societe" />
+      <End Role="Compte_rendu" EntitySet="Compte_rendu" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Compte_re__id_te__0E6E26BF" Association="Self.FK__Compte_re__id_te__0E6E26BF">
+      <End Role="Technicien" EntitySet="Technicien" />
+      <End Role="Compte_rendu" EntitySet="Compte_rendu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Intervention_Compte_rendu" Association="Self.FK_Intervention_Compte_rendu">
+      <End Role="Compte_rendu" EntitySet="Compte_rendu" />
+      <End Role="Intervention" EntitySet="Intervention" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Etat_intervention_Etat_intervention" Association="Self.FK_Etat_intervention_Etat_intervention">
+      <End Role="Etat_intervention" EntitySet="Etat_intervention" />
+      <End Role="Etat_intervention1" EntitySet="Etat_intervention" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Intervention_Etat_intervention1" Association="Self.FK_Intervention_Etat_intervention1">
+      <End Role="Etat_intervention" EntitySet="Etat_intervention" />
+      <End Role="Intervention" EntitySet="Intervention" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Intervention_Motif_intervention1" Association="Self.FK_Intervention_Motif_intervention1">
+      <End Role="Motif_intervention" EntitySet="Motif_intervention" />
+      <End Role="Intervention" EntitySet="Intervention" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Intervention_Societe" Association="Self.FK_Intervention_Societe">
+      <End Role="Societe" EntitySet="Societe" />
+      <End Role="Intervention" EntitySet="Intervention" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Intervention_Technicien" Association="Self.FK_Intervention_Technicien">
+      <End Role="Technicien" EntitySet="Technicien" />
+      <End Role="Intervention" EntitySet="Intervention" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Technicien_Materiel" Association="Self.FK_Technicien_Materiel">
+      <End Role="Materiel" EntitySet="Materiel" />
+      <End Role="Technicien" EntitySet="Technicien" />
+    </AssociationSet>
+    <FunctionImport Name="AddCompte_Rendu">
+      <Parameter Name="note" Mode="In" Type="String" />
+      <Parameter Name="id_technicien" Mode="In" Type="Int32" />
+      <Parameter Name="id_societe" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="AddIntervention">
+      <Parameter Name="id_motif" Mode="In" Type="Int32" />
+      <Parameter Name="date_intervention" Mode="In" Type="DateTime" />
+      <Parameter Name="id_compte_rendu" Mode="In" Type="Int32" />
+      <Parameter Name="id_etat" Mode="In" Type="Int32" />
+      <Parameter Name="id_technicien" Mode="In" Type="Int32" />
+      <Parameter Name="id_societe" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="AddMateriel">
+      <Parameter Name="id_materiel" Mode="In" Type="Int32" />
+      <Parameter Name="num_serie" Mode="In" Type="String" />
+      <Parameter Name="modele" Mode="In" Type="String" />
+      <Parameter Name="ip" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AddSociete">
+      <Parameter Name="nom_societe" Mode="In" Type="String" />
+      <Parameter Name="adresse_societe" Mode="In" Type="String" />
+      <Parameter Name="email_societe" Mode="In" Type="String" />
+      <Parameter Name="ville_societe" Mode="In" Type="String" />
+      <Parameter Name="cp_societe" Mode="In" Type="String" />
+      <Parameter Name="tel_societe" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AddTechnicien">
+      <Parameter Name="nom" Mode="In" Type="String" />
+      <Parameter Name="prenom" Mode="In" Type="String" />
+      <Parameter Name="id_materiel" Mode="In" Type="Int32" />
+      <Parameter Name="tel" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteCompte_Rendu">
+      <Parameter Name="idcompte_rendu" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteIntervention">
+      <Parameter Name="id_intervention" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteMateriel">
+      <Parameter Name="idmateriel" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteSociete">
+      <Parameter Name="idsociete" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteTechnicien">
+      <Parameter Name="idtechnicien" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SearchCompte_Rendu" ReturnType="Collection(bdd_Daltons_ppe3Model.SearchCompte_Rendu_Result)" />
+    <FunctionImport Name="SearchIntervention" ReturnType="Collection(bdd_Daltons_ppe3Model.SearchIntervention_Result)" />
+    <FunctionImport Name="SearchMateriel" ReturnType="Collection(bdd_Daltons_ppe3Model.SearchMateriel_Result)" />
+    <FunctionImport Name="SearchMotif" ReturnType="Collection(bdd_Daltons_ppe3Model.SearchMotif_Result)" />
+    <FunctionImport Name="SearchSociete" ReturnType="Collection(bdd_Daltons_ppe3Model.SearchSociete_Result)" />
+    <FunctionImport Name="SearchTechnicien" ReturnType="Collection(bdd_Daltons_ppe3Model.SearchTechnicien_Result)" />
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(bdd_Daltons_ppe3Model.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(bdd_Daltons_ppe3Model.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="UPDCompte_rendu">
+      <Parameter Name="id_compte_rendu" Mode="In" Type="Int32" />
+      <Parameter Name="note" Mode="In" Type="String" />
+      <Parameter Name="id_technicien" Mode="In" Type="Int32" />
+      <Parameter Name="id_societe" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UPDIntervention">
+      <Parameter Name="id_intervention" Mode="In" Type="Int32" />
+      <Parameter Name="id_motif" Mode="In" Type="Int32" />
+      <Parameter Name="date_intervention" Mode="In" Type="DateTime" />
+      <Parameter Name="id_compte_rendu" Mode="In" Type="Int32" />
+      <Parameter Name="id_etat" Mode="In" Type="Int32" />
+      <Parameter Name="id_technicien" Mode="In" Type="Int32" />
+      <Parameter Name="id_societe" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UPDSociete">
+      <Parameter Name="id_societe" Mode="In" Type="Int32" />
+      <Parameter Name="nomsociete" Mode="In" Type="String" />
+      <Parameter Name="adresse_societe" Mode="In" Type="String" />
+      <Parameter Name="email_societe" Mode="In" Type="String" />
+      <Parameter Name="ville_societe" Mode="In" Type="String" />
+      <Parameter Name="cp_societe" Mode="In" Type="String" />
+      <Parameter Name="tel_societe" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UPDTechnicien">
+      <Parameter Name="id_technicien" Mode="In" Type="Int32" />
+      <Parameter Name="nom" Mode="In" Type="String" />
+      <Parameter Name="prenom" Mode="In" Type="String" />
+      <Parameter Name="id_materiel" Mode="In" Type="Int32" />
+      <Parameter Name="tel" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="SearchCompte_Rendu_Result">
+    <Property Type="Int32" Name="id_compte_rendu" Nullable="false" />
+    <Property Type="String" Name="note" Nullable="false" MaxLength="Max" />
+    <Property Type="Int32" Name="id_technicien" Nullable="false" />
+    <Property Type="Int32" Name="id_societe" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SearchIntervention_Result">
+    <Property Type="DateTime" Name="date_intervention" Nullable="false" />
+    <Property Type="Int32" Name="id_intervention" Nullable="false" />
+    <Property Type="Int32" Name="id_motif" Nullable="false" />
+    <Property Type="String" Name="libelle" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="id_societe" Nullable="false" />
+    <Property Type="String" Name="nom_societe" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="adresse_societe" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="cp_societe" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="email_societe" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="tel_societe" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="ville_societe" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="nom" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="prenom" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="tel" Nullable="false" MaxLength="10" />
+    <Property Type="Int32" Name="id_technicien" Nullable="false" />
+    <Property Type="Int32" Name="id_etat" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SearchMateriel_Result">
+    <Property Type="Int32" Name="id_materiel" Nullable="false" />
+    <Property Type="String" Name="num_serie" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="modele" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="ip" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="SearchMotif_Result">
+    <Property Type="Int32" Name="id_motif" Nullable="false" />
+    <Property Type="String" Name="libelle" Nullable="false" MaxLength="50" />
+    <Property Type="Double" Name="prix_h" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SearchSociete_Result">
+    <Property Type="Int32" Name="id_societe" Nullable="false" />
+    <Property Type="String" Name="nom_societe" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="adresse_societe" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="email_societe" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="ville_societe" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="cp_societe" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="tel_societe" Nullable="false" MaxLength="10" />
+  </ComplexType>
+  <ComplexType Name="SearchTechnicien_Result">
+    <Property Type="String" Name="nom" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="prenom" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="tel" Nullable="false" MaxLength="10" />
+    <Property Type="Int32" Name="id_technicien" Nullable="false" />
+    <Property Type="String" Name="modele" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="num_serie" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="id_materiel" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

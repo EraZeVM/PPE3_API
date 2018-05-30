@@ -27,7 +27,7 @@
           </Key>
           <Property Name="id_intervention" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_societe" Type="int" Nullable="false" />
-          <Property Name="date_intervention" Type="datetime" Nullable="false" />
+          <Property Name="date_intervention" Type="date" Nullable="false" />
           <Property Name="id_technicien" Type="int" Nullable="false" />
           <Property Name="id_motif" Type="int" Nullable="false" />
           <Property Name="id_etat" Type="int" Nullable="false" />
@@ -228,7 +228,7 @@
         </Function>
         <Function Name="AddIntervention" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id_motif" Type="int" Mode="In" />
-          <Parameter Name="date_intervention" Type="datetime" Mode="In" />
+          <Parameter Name="date_intervention" Type="date" Mode="In" />
           <Parameter Name="id_compte_rendu" Type="int" Mode="In" />
           <Parameter Name="id_etat" Type="int" Mode="In" />
           <Parameter Name="id_technicien" Type="int" Mode="In" />
@@ -315,7 +315,7 @@
         <Function Name="UPDIntervention" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id_intervention" Type="int" Mode="In" />
           <Parameter Name="id_motif" Type="int" Mode="In" />
-          <Parameter Name="date_intervention" Type="datetime" Mode="In" />
+          <Parameter Name="date_intervention" Type="date" Mode="In" />
           <Parameter Name="id_compte_rendu" Type="int" Mode="In" />
           <Parameter Name="id_etat" Type="int" Mode="In" />
           <Parameter Name="id_technicien" Type="int" Mode="In" />
@@ -427,7 +427,7 @@
           </Key>
           <Property Name="id_intervention" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_societe" Type="Int32" Nullable="false" />
-          <Property Name="date_intervention" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="date_intervention" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="id_technicien" Type="Int32" Nullable="false" />
           <Property Name="id_motif" Type="Int32" Nullable="false" />
           <Property Name="id_etat" Type="Int32" Nullable="false" />
@@ -812,13 +812,22 @@
           <Property Type="Int32" Name="id_societe" Nullable="true" />
         </ComplexType>
         <ComplexType Name="SearchIntervention_Result">
+          <Property Type="DateTime" Name="date_intervention" Nullable="false" />
           <Property Type="Int32" Name="id_intervention" Nullable="false" />
-          <Property Type="Int32" Name="id_societe" Nullable="false" />
-          <Property Type="DateTime" Name="date_intervention" Nullable="false" Precision="23" />
-          <Property Type="Int32" Name="id_technicien" Nullable="false" />
           <Property Type="Int32" Name="id_motif" Nullable="false" />
+          <Property Type="String" Name="libelle" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="id_societe" Nullable="false" />
+          <Property Type="String" Name="nom_societe" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="adresse_societe" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="cp_societe" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="email_societe" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="tel_societe" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="ville_societe" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="nom" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="prenom" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="tel" Nullable="false" MaxLength="10" />
+          <Property Type="Int32" Name="id_technicien" Nullable="false" />
           <Property Type="Int32" Name="id_etat" Nullable="false" />
-          <Property Type="Int32" Name="id_compte_rendu" Nullable="true" />
         </ComplexType>
         <ComplexType Name="SearchMateriel_Result">
           <Property Type="Int32" Name="id_materiel" Nullable="false" />
@@ -841,11 +850,13 @@
           <Property Type="String" Name="tel_societe" Nullable="false" MaxLength="10" />
         </ComplexType>
         <ComplexType Name="SearchTechnicien_Result">
-          <Property Type="Int32" Name="id_technicien" Nullable="false" />
           <Property Type="String" Name="nom" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="prenom" Nullable="false" MaxLength="50" />
-          <Property Type="Int32" Name="id_materiel" Nullable="false" />
           <Property Type="String" Name="tel" Nullable="false" MaxLength="10" />
+          <Property Type="Int32" Name="id_technicien" Nullable="false" />
+          <Property Type="String" Name="modele" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="num_serie" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="id_materiel" Nullable="false" />
         </ComplexType>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -980,13 +991,22 @@
           <FunctionImportMapping FunctionImportName="SearchIntervention" FunctionName="bdd_Daltons_ppe3Model.Store.SearchIntervention">
             <ResultMapping>
               <ComplexTypeMapping TypeName="bdd_Daltons_ppe3Model.SearchIntervention_Result">
-                <ScalarProperty Name="id_intervention" ColumnName="id_intervention" />
-                <ScalarProperty Name="id_societe" ColumnName="id_societe" />
                 <ScalarProperty Name="date_intervention" ColumnName="date_intervention" />
-                <ScalarProperty Name="id_technicien" ColumnName="id_technicien" />
+                <ScalarProperty Name="id_intervention" ColumnName="id_intervention" />
                 <ScalarProperty Name="id_motif" ColumnName="id_motif" />
+                <ScalarProperty Name="libelle" ColumnName="libelle" />
+                <ScalarProperty Name="id_societe" ColumnName="id_societe" />
+                <ScalarProperty Name="nom_societe" ColumnName="nom_societe" />
+                <ScalarProperty Name="adresse_societe" ColumnName="adresse_societe" />
+                <ScalarProperty Name="cp_societe" ColumnName="cp_societe" />
+                <ScalarProperty Name="email_societe" ColumnName="email_societe" />
+                <ScalarProperty Name="tel_societe" ColumnName="tel_societe" />
+                <ScalarProperty Name="ville_societe" ColumnName="ville_societe" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="prenom" ColumnName="prenom" />
+                <ScalarProperty Name="tel" ColumnName="tel" />
+                <ScalarProperty Name="id_technicien" ColumnName="id_technicien" />
                 <ScalarProperty Name="id_etat" ColumnName="id_etat" />
-                <ScalarProperty Name="id_compte_rendu" ColumnName="id_compte_rendu" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1025,11 +1045,13 @@
           <FunctionImportMapping FunctionImportName="SearchTechnicien" FunctionName="bdd_Daltons_ppe3Model.Store.SearchTechnicien">
             <ResultMapping>
               <ComplexTypeMapping TypeName="bdd_Daltons_ppe3Model.SearchTechnicien_Result">
-                <ScalarProperty Name="id_technicien" ColumnName="id_technicien" />
                 <ScalarProperty Name="nom" ColumnName="nom" />
                 <ScalarProperty Name="prenom" ColumnName="prenom" />
-                <ScalarProperty Name="id_materiel" ColumnName="id_materiel" />
                 <ScalarProperty Name="tel" ColumnName="tel" />
+                <ScalarProperty Name="id_technicien" ColumnName="id_technicien" />
+                <ScalarProperty Name="modele" ColumnName="modele" />
+                <ScalarProperty Name="num_serie" ColumnName="num_serie" />
+                <ScalarProperty Name="id_materiel" ColumnName="id_materiel" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
